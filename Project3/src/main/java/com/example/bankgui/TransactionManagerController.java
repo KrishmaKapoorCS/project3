@@ -44,8 +44,16 @@ public class TransactionManagerController
 
     //instance vars:
     private Date today;
-    private SimpleDateFormat dateFormat;
     private AccountDatabase database;
+
+    private String reformatDateString(String str) throws Exception
+    {
+        String[] pieces = str.split("-");
+        if(pieces.length != 3)
+            throw new Exception("Invalid date format: " + str);
+
+        return pieces[1] + "/" + pieces[2] + "/" + pieces[0];
+    }
 
     /**
      * Parses a date of birth
@@ -253,7 +261,7 @@ public class TransactionManagerController
 
             String firstName = openFirstName.getText();
             String lastName = openLastName.getText();
-            Date dob = parseDOB(dateFormat.format(openDateOfBirth.getValue()), minAge, maxAge);
+            Date dob = parseDOB(reformatDateString(openDateOfBirth.getValue().toString()), minAge, maxAge);
             Profile profile = new Profile(firstName, lastName, dob);
             double balance = parseBalance("10.0"); //TODO: get this string from an fxml box
             if(balance <= 0.0)
@@ -292,7 +300,7 @@ public class TransactionManagerController
             String accountType = ((RadioButton) openAccountTypeTG.getSelectedToggle()).getText();
             String firstName = openFirstName.getText();
             String lastName = openLastName.getText();
-            Date dob = parseDOB(dateFormat.format(openDateOfBirth.getValue()), -1, -1);
+            Date dob = parseDOB(reformatDateString(openDateOfBirth.getValue().toString()), -1, -1);
             Profile profile = new Profile(firstName, lastName, dob);
 
             Account account = parseAccount(accountType, profile, 0.0, false);
@@ -352,7 +360,7 @@ public class TransactionManagerController
 
             String firstName = depFirstName.getText();
             String lastName = depLastName.getText();
-            Date dob = parseDOB(dateFormat.format(depDateOfBirth.getValue()), -1, -1);
+            Date dob = parseDOB(reformatDateString(depDateOfBirth.getValue().toString()), -1, -1);
             Profile profile = new Profile(firstName, lastName, dob);
             double balance = parseBalance(depAmount.getText());
             if(balance <= 0.0)
@@ -395,7 +403,7 @@ public class TransactionManagerController
 
             String firstName = depFirstName.getText();
             String lastName = depLastName.getText();
-            Date dob = parseDOB(dateFormat.format(depDateOfBirth.getValue()), -1, -1);
+            Date dob = parseDOB(reformatDateString(depDateOfBirth.getValue().toString()), -1, -1);
             Profile profile = new Profile(firstName, lastName, dob);
             double balance = parseBalance(depAmount.getText());
             if(balance <= 0.0)
@@ -503,7 +511,6 @@ public class TransactionManagerController
     public TransactionManagerController()
     {
         today = new Date(2023, 11, 4);
-        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         database = new AccountDatabase();
     }
 }
