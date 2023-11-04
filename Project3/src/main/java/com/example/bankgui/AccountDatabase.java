@@ -143,39 +143,46 @@ public class AccountDatabase
 	}
 
 	/**
-	 * Prints all of the accounts in the database, sorted by type and holder
+	 * Gets all of the accounts in the database in a string, sorted by type and holder
+	 * @return a string containing all of the accounts
 	 */
-	public void printSorted()
+	public String getAccountsString()
 	{
 		sort();
 
+		String output = "";
 		for(int i = 0; i < numAcct; i++)
-			System.out.println(accounts[i].toString());
+			output = output + accounts[i].toString() + "\n";
+
+		return output;
 	}
 
 	/**
-	 * Prints all of the accounts in the database along with their fees and interest rates
+	 * Gets all of the accounts in the database in a string, along with their fees and interest rates
 	 */
-	public void printFeesAndInterests()
+	public String getFeesAndInterestString()
 	{
 		sort();
 
+		String output = "";
 		for(int i = 0; i < numAcct; i++)
-			System.out.println(accounts[i].feesString());
+			output = output + accounts[i].feesString() + "\n";
+
+		return output;
 	}
 
 	/**
-	 * Updates all of the account balances in the database and prints the new balances
+	 * Updates all of the account balances in the database and returns the new balances as a string
+	 * @return all of the accounts balances as a string
 	 */
-	public void printUpdatedBalances()
+	public String getUpdatedBalances()
 	{
 		sort();
 
 		for(int i = 0; i < numAcct; i++)
-		{
 			accounts[i].update();
-			System.out.println(accounts[i].toString());
-		}
+
+		return getAccountsString();
 	}
 
 	/**

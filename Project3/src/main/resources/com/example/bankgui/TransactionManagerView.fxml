@@ -20,23 +20,27 @@
                    <Label layoutX="32.0" layoutY="34.0" text="First Name" />
                    <Label layoutX="33.0" layoutY="77.0" text="Last Name" />
                    <Label layoutX="27.0" layoutY="121.0" text="Date of Birth" />
-                   <TextField fx:id="textFirstName" layoutX="113.0" layoutY="30.0" promptText="Enter your first name" />
-                   <TextField layoutX="113.0" layoutY="73.0" promptText="Enter your last name" />
-                   <DatePicker layoutX="113.0" layoutY="117.0" promptText="Enter your DOB" />
-               <Button fx:id="openAccountButton" layoutX="372.0" layoutY="280.0" mnemonicParsing="false" onAction="#openAccountButtonClicked" prefHeight="25.0" prefWidth="71.0" text="Open" />
-               <Button layoutX="458.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Close" />
-               <RadioButton layoutX="121.0" layoutY="180.0" mnemonicParsing="false" text="Savings">
+                   <TextField fx:id="openFirstName" layoutX="113.0" layoutY="30.0" promptText="Enter your first name" />
+                   <TextField fx:id="openLastName" layoutX="113.0" layoutY="73.0" promptText="Enter your last name" />
+                   <DatePicker fx:id="openDateOfBirth" layoutX="113.0" layoutY="117.0" promptText="Enter your DOB" />
+               <Button layoutX="372.0" layoutY="280.0" mnemonicParsing="false" onAction="#openAccountButtonClicked" prefHeight="25.0" prefWidth="71.0" text="Open" />
+               <Button layoutX="458.0" layoutY="280.0" mnemonicParsing="false" onAction="#closeAccountButtonClicked" prefHeight="25.0" prefWidth="71.0" text="Close" />
+               <RadioButton layoutX="121.0" layoutY="180.0" mnemonicParsing="false" onAction="#accountTypeOptionClicked" text="Savings">
                   <toggleGroup>
-                     <ToggleGroup fx:id="accountTypeTG" />
+                     <ToggleGroup fx:id="openAccountTypeTG" />
                   </toggleGroup>
                </RadioButton>
-               <RadioButton layoutX="121.0" layoutY="218.0" mnemonicParsing="false" text="Checking" toggleGroup="$accountTypeTG" />
-               <RadioButton layoutX="121.0" layoutY="252.0" mnemonicParsing="false" text="College Checking" toggleGroup="$accountTypeTG" />
-               <RadioButton layoutX="121.0" layoutY="284.0" mnemonicParsing="false" text="Money Market" toggleGroup="$accountTypeTG" />
+               <RadioButton layoutX="121.0" layoutY="218.0" mnemonicParsing="false" text="Checking" onAction="#accountTypeOptionClicked" toggleGroup="$openAccountTypeTG" />
+               <RadioButton layoutX="121.0" layoutY="252.0" mnemonicParsing="false" text="College Checking" onAction="#accountTypeOptionClicked" toggleGroup="$openAccountTypeTG" />
+               <RadioButton layoutX="121.0" layoutY="284.0" mnemonicParsing="false" text="Money Market" onAction="#accountTypeOptionClicked" toggleGroup="$openAccountTypeTG" />
                <Label layoutX="24.0" layoutY="218.0" text="Account Type" />
-               <RadioButton layoutX="255.0" layoutY="160.0" mnemonicParsing="false" text="NB" />
-               <RadioButton layoutX="255.0" layoutY="188.0" mnemonicParsing="false" text="Newark" />
-               <RadioButton layoutX="255.0" layoutY="218.0" mnemonicParsing="false" text="Camden" />
+               <RadioButton layoutX="255.0" layoutY="160.0" mnemonicParsing="false" text="NB" disable="true" toggleGroup="$openCampusTG">
+                   <toggleGroup>
+                       <ToggleGroup fx:id="openCampusTG" />
+                   </toggleGroup>
+               </RadioButton>
+               <RadioButton layoutX="255.0" layoutY="188.0" mnemonicParsing="false" text="Newark" disable="true" toggleGroup="$openCampusTG"/>
+               <RadioButton layoutX="255.0" layoutY="218.0" mnemonicParsing="false" text="Camden" disable="true" toggleGroup="$openCampusTG"/>
                </AnchorPane>
            </Tab>
            <Tab text="Actions">
@@ -44,23 +48,23 @@
                <children>
                   <Label layoutX="123.0" layoutY="40.0" text="First Name" />
                   <Label layoutX="124.0" layoutY="94.0" text="Last Name" />
-                  <TextField layoutX="198.0" layoutY="36.0" prefHeight="25.0" prefWidth="231.0" />
-                  <TextField layoutX="198.0" layoutY="90.0" prefHeight="25.0" prefWidth="233.0" />
-                  <DatePicker layoutX="198.0" layoutY="148.0" />
+                  <TextField fx:id="depFirstName" promptText="Enter your first name" layoutX="198.0" layoutY="36.0" prefHeight="25.0" prefWidth="231.0" />
+                  <TextField fx:id="depLastName" promptText="Enter your last name" layoutX="198.0" layoutY="90.0" prefHeight="25.0" prefWidth="233.0" />
+                  <DatePicker fx:id="depDateOfBirth" promptText="Enter your DOB" layoutX="198.0" layoutY="148.0" />
                   <Label layoutX="117.0" layoutY="152.0" text="Date Of Birth" />
                   <Label layoutX="130.0" layoutY="197.0" text="Amount:" />
-                  <TextField layoutX="198.0" layoutY="193.0" prefHeight="25.0" prefWidth="174.0" />
-                  <Button layoutX="186.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Withdraw" />
-                  <Button layoutX="305.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Deposit" />
+                  <TextField fx:id="depAmount" promptText="Enter an amount" layoutX="198.0" layoutY="193.0" prefHeight="25.0" prefWidth="174.0" />
+                  <Button onAction="#withdrawButtonClicked" layoutX="186.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Withdraw" />
+                  <Button onAction="#depositButtonClicked" layoutX="305.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Deposit" />
                </children></AnchorPane>
            </Tab>
            <Tab text="Account Database">
                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="54.0" layoutY="43.0" mnemonicParsing="false" text="Print All Accounts" />
-                  <Button layoutX="54.0" layoutY="103.0" mnemonicParsing="false" text="Print Interest and Fees" />
-                  <Button layoutX="228.0" layoutY="43.0" mnemonicParsing="false" text="Load Accounts from a file" />
-                  <Button layoutX="228.0" layoutY="103.0" mnemonicParsing="false" text="Update Accounts with Interest and Fees" />
+                  <Button layoutX="54.0" layoutY="43.0" mnemonicParsing="false" text="Print All Accounts" onAction="#printButtonClicked" />
+                  <Button layoutX="54.0" layoutY="103.0" mnemonicParsing="false" text="Print Interest and Fees" onAction="#printFeesButtonClicked" />
+                  <Button layoutX="228.0" layoutY="43.0" mnemonicParsing="false" text="Load Accounts from a file" onAction="#fileButtonClicked" />
+                  <Button layoutX="228.0" layoutY="103.0" mnemonicParsing="false" text="Update Accounts with Interest and Fees" onAction="#updateButtonClicked" />
                </children></AnchorPane>
            </Tab>
          <Tab text="About">
@@ -72,7 +76,7 @@
    </top>
 
     <bottom>
-    <TextArea>
+    <TextArea fx:id="outputBox" editable="false">
 
     </TextArea>
     </bottom>
