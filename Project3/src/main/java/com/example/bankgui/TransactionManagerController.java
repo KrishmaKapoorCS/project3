@@ -116,21 +116,24 @@ public class TransactionManagerController
            }
            case "College Checking" ->
            {
-               //int campusCode = Integer.parseInt(extraArg);
-               if (openCampusTG.getSelectedToggle() == null)
-                   throw new Exception("Invalid campus code.");
-               String campusString = ((RadioButton) openCampusTG.getSelectedToggle()).getText();
-               int campusCode = switch (campusString) {
-                   case "NB" -> 0;
-                   case "Newark" -> 1;
-                   case "Camden" -> 2;
-                   default -> -1;
-               };
+               int campusCode = 0;
+               if(initial) {
+                   if (openCampusTG.getSelectedToggle() == null)
+                       throw new Exception("Invalid campus code.");
+                   String campusString = ((RadioButton) openCampusTG.getSelectedToggle()).getText();
+                   campusCode = switch (campusString) {
+                       case "NB" -> 0;
+                       case "Newark" -> 1;
+                       case "Camden" -> 2;
+                       default -> -1;
+                   };
+               }
+
                return new CollegeChecking(profile, balance, campusCode);
            }
            case "Savings" ->
            {
-               return new Savings(profile, balance, openLoyal.isSelected());
+               return new Savings(profile, balance, initial ? openLoyal.isSelected() : true);
            }
            case "Money Market" ->
            {
