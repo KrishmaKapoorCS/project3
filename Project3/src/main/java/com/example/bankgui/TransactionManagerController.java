@@ -27,6 +27,8 @@ public class TransactionManagerController
     private DatePicker openDateOfBirth;
     @FXML
     private ToggleGroup openCampusTG;
+    @FXML
+    private CheckBox openLoyal;
 
     @FXML
     private TextField depFirstName;
@@ -128,9 +130,7 @@ public class TransactionManagerController
            }
            case "Savings" ->
            {
-               //String loyal = extraArg;
-               //TODO: get loyal from loyal checkbox
-               return new Savings(profile, balance, true);
+               return new Savings(profile, balance, openLoyal.isSelected());
            }
            case "Money Market" ->
            {
@@ -333,12 +333,10 @@ public class TransactionManagerController
         });
 
         boolean showLoyalty = accountType.equals("Savings");
-        //TODO: hide/show loyalty checkbox
+        openLoyal.setDisable(!showLoyalty);
 
         if(accountType.equals("Money Market"))
-        {
-            //TODO: set loyalty checkbox to true
-        }
+            openLoyal.setSelected(true);
     }
 
     /**
