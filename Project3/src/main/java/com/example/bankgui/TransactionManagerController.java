@@ -29,6 +29,8 @@ public class TransactionManagerController
     private ToggleGroup openCampusTG;
     @FXML
     private CheckBox openLoyal;
+    @FXML
+    private TextField openAmount;
 
     @FXML
     private TextField depFirstName;
@@ -48,6 +50,12 @@ public class TransactionManagerController
     private Date today;
     private AccountDatabase database;
 
+    /**
+     * Reformats a date string as returned by the FXML DatePicker to the format mm/dd/yyyy
+     * @param str the date string returned by a DatePicker
+     * @return a date string in the format mm/dd/yyyy
+     * @throws Exception if the date was not in a recognizable format
+     */
     private String reformatDateString(String str) throws Exception
     {
         String[] pieces = str.split("-");
@@ -251,6 +259,7 @@ public class TransactionManagerController
     {
         if(openFirstName.getText() == null || openFirstName.getText().isEmpty()
                 || openLastName.getText() == null || openLastName.getText().isEmpty()
+                || openAmount.getText() == null || openAmount.getText().isEmpty()
                 || openAccountTypeTG.getSelectedToggle() == null || openDateOfBirth.getValue() == null)
         {
             outputBox.appendText("Missing data for opening an account.\n");
@@ -266,7 +275,7 @@ public class TransactionManagerController
             String lastName = openLastName.getText();
             Date dob = parseDOB(reformatDateString(openDateOfBirth.getValue().toString()), minAge, maxAge);
             Profile profile = new Profile(firstName, lastName, dob);
-            double balance = parseBalance("10.0"); //TODO: get this string from an fxml box
+            double balance = parseBalance(openAmount.getText());
             if(balance <= 0.0)
                 throw new Exception("Initial deposit cannot be 0 or negative.");
 
@@ -473,6 +482,9 @@ public class TransactionManagerController
         }
     }
 
+    /**
+     * Runs with the "load accounts from file" button is clicked, loads accounts from bankaccounts.txt
+     */
     public void fileButtonClicked()
     {
         Scanner scan;

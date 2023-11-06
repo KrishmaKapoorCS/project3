@@ -14,10 +14,16 @@ import java.io.IOException;
  *
  * @author Krishma Kapoor
  */
-
-public class TransactionManagerMain extends Application {
+public class TransactionManagerMain extends Application
+{
+    /**
+     * Initializes the FXML GUI
+     * @param stage the ui window
+     * @throws IOException if the fxml file failed to load
+     */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(TransactionManagerMain.class.getResource("TransactionManagerView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 635, 500);
         stage.setTitle("Project 3 - Transaction Manager");
@@ -25,7 +31,12 @@ public class TransactionManagerMain extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main function
+     * @param args command line arguments
+     */
+    public static void main(String[] args)
+    {
         launch();
     }
 }
